@@ -24,9 +24,14 @@ public class MemberController {
     @GetMapping("/members")
     String getMembers(Model model) {
         model.addAttribute("listOfMembers", listOfMembers);
-        model.addAttribute("newMember", new Member(null, 0));
 
         return "members";
+    }
+
+    @GetMapping("/forms")
+    String getForms(Model model) {
+        model.addAttribute("newMember", new Member(null, 0));
+        return "forms";
     }
 
     @PostMapping("/newMember")
