@@ -9,8 +9,24 @@
 
 <body>
 
+    <form th:method="post" th:action="@{/newMember}" th:object="${newMember}">
 
-    prutt
+        <input type="text" th:field="*{name}">
+        <input type="submit">
+
+    </form>
+
+    <div>
+
+        <ul th:id="${member.id}"th:each="member : ${listOfMembers}">
+            Medlem <span th:text="${member.name}"></span>
+            <a th:href="@{/removeMember/{memberId}(memberId=${member.id})}">Ta bort</a>
+            
+        </ul>
+
+    </div>
+
+
 </body>
 
 </html>
