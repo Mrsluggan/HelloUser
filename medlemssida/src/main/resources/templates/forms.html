@@ -10,6 +10,24 @@
 </head>
 
 <body>
+    
+<script>
+
+function isAdmin() {
+
+    if (localStorage.getItem("isAdmin") === "true") {
+    } else {
+        alert("Du har inte administratörsbehörighet.");
+        window.location.href = "/members";
+
+    }
+}
+
+isAdmin();
+
+</script>
+
+
 
     <!--Navbar -->
     <nav class="navbar">
@@ -19,13 +37,13 @@
         <ul class="navbar-links">
             <li><a href="#">Home</a></li>
             <li><a href="/members">Medlemmar</a></li>
-            <li><a href="#">Under construction</a></li>
         </ul>
     </nav>
     <!--Slut på Navbar -->
 
     <!--Start av mainBody -->
     <div class="mainBody">
+
 
 
         <h2>Lägg till Medlem</h2>
@@ -36,6 +54,19 @@
             <input type="submit">
 
         </form>
+        
+        <ul th:id="${member.id}" th:each="member : ${listOfMembers}">
+            Medlem: <span th:text="${member.name}"></span>
+            <a th:href="@{/removeMember/{memberId}(memberId=${member.id})}">Ta bort</a>
+
+        </ul>
+
+
+
+
+
+
+
         <!--Slut på Input -->
 
 

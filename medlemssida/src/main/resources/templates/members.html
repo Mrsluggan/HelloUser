@@ -17,9 +17,19 @@
             <h3>Medlemmar inom Bosses Båtklubb</h3>
         </div>
         <ul class="navbar-links">
-            <li><a href="#">Home</a></li>
+
+
+
+            <li><a id="hover" href="#">Logga in</a>
+                <div id="loginBox" style="position: absolute; background-color: blanchedalmond; margin-top: 20px; width: 200px;">
+                </div>
+            </li>
+
+            <li><a href="/home">Home</a></li>
             <li><a href="/members">Medlemmar</a></li>
-            <li><a href="#">Under construction</a></li>
+
+
+
         </ul>
     </nav>
     <!--Slut på Navbar -->
@@ -31,15 +41,20 @@
 
 
 
+
         <!--Medlemlistan -->
         <div>
             <h2>Båtklubbens Medlemmar</h2>
-            Lägga till medlemmar: <a href="/forms"><button>Lägg till medlem</button></a>
+
+            <!--Adminportal för hantera medlemmar, syns bara om admin är inloggad -->
+            <div id="hidediv"></div>
+            <!--Adminportal slut -->
             <ul th:id="${member.id}" th:each="member : ${listOfMembers}">
-                Medlem <span th:text="${member.name}"></span>
-                <a th:href="@{/removeMember/{memberId}(memberId=${member.id})}">Ta bort</a>
+                Medlem: <span th:text="${member.name}"></span>
 
             </ul>
+
+
 
         </div>
         <!--Slut på MedlemListan -->
@@ -49,6 +64,85 @@
     <!--Slut av mainBody -->
 
 
+    <script>
+
+
+
+        function loginMenu() {
+
+            var loginBox = document.getElementById("loginBox");
+            var loginForm = document.createElement("div");
+            var password = document.createElement("div");
+
+
+
+
+            loginForm.innerHTML = `
+<form onsubmit="login(event)">
+    <label>Namn</label>
+    <input type="text" id="name" name="name" size="6 style="float: left;"><br>
+    <label> Lösenord</label>
+    <input type="password" id="password" name="password" size="6"><br>
+    <input type="submit" value="Login">
+</form>
+`;
+
+            loginBox.appendChild(loginForm);
+
+        }
+
+
+
+
+        function loginMenuHover() {
+            var hover = document.getElementById("hover");
+            hover.addEventListener("mouseover", function () {
+                loginMenu();
+            });
+
+            hover.addEventListener("", function () {
+                var loginBox = document.getElementById("loginBox");
+                loginBox.innerHTML = "";
+            });
+        }
+
+
+        function login(event) {
+            event.preventDefault();
+
+            if (event.target['name'].value == "admin" && event.target['password'].value == "admin") {
+                localStorage.setItem("isAdmin", "true");
+                location.reload()
+
+            }
+
+
+        }
+        function isAdmin() {
+
+            if (localStorage.getItem("isAdmin") == "true") {
+
+                document.getElementById("hidediv").innerHTML = " Lägga till medlemmar: <a href='/forms'><button>Lägg till medlem</button></a>";
+            }
+
+
+            if (localStorage.getItem("isAdmin") == "true") {
+
+                document.getElementById("hideA") = hidea;
+                hidea.style.display = "none";
+
+
+            }
+
+        }
+
+        isAdmin();
+        loginMenuHover();
+
+
+
+
+    </script>
 
 </body>
 
